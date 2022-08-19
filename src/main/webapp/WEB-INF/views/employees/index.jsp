@@ -29,8 +29,8 @@
                         <td><c:out value="${employee.name }" /></td>
                         <td>
                             <c:choose>
-                                <c:when test="${employee.deleteFlag==AttributeCounst.DEL_FLAG_TRUE.getIntegerValue() }">
-                                    (削除済み)
+                                 <c:when test="${employee.deleteFlag == AttributeConst.DEL_FLAG_TRUE.getIntegerValue()}">
+                                    （削除済み）
                                 </c:when>
                                 <c:otherwise>
                                     <a href="<c:url value='?action=${actEmp}&command=${commShow}&id=${employee.id}' />">詳細を見る</a>
