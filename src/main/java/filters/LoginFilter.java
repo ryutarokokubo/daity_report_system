@@ -14,9 +14,9 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import actions.views.EmployeeView;
 import constants.AttributeConst;
 import constants.ForwardConst;
-import views.EmployeeView;
 /**
  * Servlet Filter implementation class LoginFilter
  */
