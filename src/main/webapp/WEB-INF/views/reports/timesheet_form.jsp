@@ -22,10 +22,10 @@
 <br /><br />
 
 <label for="${AttributeConst.REP_CONTENT.getValue()}">出勤時間</label><br />
-<input type="time" name="attendance_time" >
+<input type="time" name="attendance_time" value="9:00">
 <br /><br />
 <label for="${AttributeConst.REP_CONTENT.getValue()}">退勤時間</label><br />
-<input type="time" name="leaving_time" >
+<input type="time" name="leaving_time" value="18:00" >
 <br /><br />
 <input type="hidden" name="${AttributeConst.REP_ID.getValue()}" value="${report.id}" />
 <input type="hidden" name="${AttributeConst.TOKEN.getValue()}" value="${_token}" />

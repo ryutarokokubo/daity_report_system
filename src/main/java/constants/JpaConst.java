@@ -38,9 +38,19 @@ public interface JpaConst {
     String REP_COL_CREATED_AT = "created_at"; //登録日時
     String REP_COL_UPDATED_AT = "updated_at"; //更新日時
 
+    //　タイムシートテーブル
+    String TABLE_TIM = "timesheet"; //テーブル名
+    //タイムシートテーブルカラム
+    String TIM_COL_ID = "id"; //id
+    String TIM_COL_EMP = "employee_id"; //勤怠を作成した従業員のid
+    String TIM_COL_REP_DATE = "attendance_date"; //いつの勤怠かを示す日付
+    String TIM_COL_ATTENDANCE = "attendance_time"; //出勤時間
+    String TIM_COL_LEAVING = "leaving_time"; //退勤時間
+
     //Entity名
     String ENTITY_EMP = "employee"; //従業員
     String ENTITY_REP = "report"; //日報
+    String ENTITY_TIM = "timesheet"; //タイムシート
 
     //JPQL内パラメータ
     String JPQL_PARM_CODE = "code"; //社員番号
@@ -72,5 +82,18 @@ String Q_EMP_COUNT_REGISTERED_BY_CODE_DEF = "SELECT COUNT(e) FROM Employee AS e 
     //指定した従業員が作成した日報の件数を取得する
     String Q_REP_COUNT_ALL_MINE = ENTITY_REP + ".countAllMine";
     String Q_REP_COUNT_ALL_MINE_DEF = "SELECT COUNT(r) FROM Report AS r WHERE r.employee = :" + JPQL_PARM_EMPLOYEE;
+
+    //全ての勤怠をidの降順に取得する
+    String Q_TIM_GET_ALL = ENTITY_TIM + ".getAll";
+    String Q_TIM_GET_ALL_DEF = "SELECT t FROM timesheet AS t ORDER BY t.id DESC";
+    //全ての勤怠の件数を取得する
+    String Q_TIM_COUNT = ENTITY_TIM + ".count";
+    String Q_TIM_COUNT_DEF = "SELECT COUNT(t) FROM timesheet AS t";
+    //指定した従業員が作成した勤怠を全件idの降順で取得する
+    String Q_TIM_GET_ALL_MINE = ENTITY_TIM + ".getAllMine";
+    String Q_TIM_GET_ALL_MINE_DEF = "SELECT t FROM timesheet AS t WHERE t.employee = :" + JPQL_PARM_EMPLOYEE + " ORDER BY t.id DESC";
+    //指定した従業員が作成した勤怠の件数を取得する
+    String Q_TIM_COUNT_ALL_MINE = ENTITY_TIM + ".countAllMine";
+    String Q_TIM_COUNT_ALL_MINE_DEF = "SELECT COUNT(t) FROM timesheet AS t WHERE t.employee = :" + JPQL_PARM_EMPLOYEE;
 
 }
