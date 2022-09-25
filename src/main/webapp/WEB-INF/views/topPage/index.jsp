@@ -10,6 +10,7 @@
 <c:set var="commShow" value="${ForwardConst.CMD_SHOW.getValue()}" />
 <c:set var="commIdx" value="${ForwardConst.CMD_INDEX.getValue()}" />
 <c:set var="commNew" value="${ForwardConst.CMD_NEW.getValue()}" />
+<c:set var="commTimesheet" value="${ForwardConst.CMD_TIMESHEET.getValue()}" />
 <c:import url="../layout/app.jsp">
     <c:param name="content">
         <c:if test="${flush != null}">
@@ -52,5 +53,10 @@
             </c:forEach>
         </div>
         <p><a href="<c:url value='?action=${actRep}&command=${commNew}' />">新規日報の登録</a></p>
+                <c:if test="${sessionScope.login_employee.id == report.employee.id}">
+                    <p>
+                        <a href="<c:url value='?action=${actRep}&command=${commTimesheet}&id=${report.id}' />">勤怠入力</a>
+                    </p>
+                </c:if>
     </c:param>
 </c:import>
