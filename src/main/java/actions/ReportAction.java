@@ -8,14 +8,17 @@ import javax.servlet.ServletException;
 
 import actions.views.EmployeeView;
 import actions.views.ReportView;
+import actions.views.TimesheetView;
 import constants.AttributeConst;
 import constants.ForwardConst;
 import constants.JpaConst;
 import constants.MessageConst;
 import services.ReportService;
+import services.TimesheetService;
 
 public class ReportAction extends ActionBase {
     private ReportService service;
+    private TimesheetService service2;
 
     /**
      * メソッドを実行する
@@ -23,6 +26,7 @@ public class ReportAction extends ActionBase {
      public void process() throws ServletException, IOException {
 
          service = new ReportService();
+         service2= new TimesheetService();
 
          //メソッドを実行
          invoke();
@@ -184,6 +188,7 @@ public class ReportAction extends ActionBase {
       */
      public void update() throws ServletException, IOException {
 
+
          //CSRF対策 tokenのチェック
          if (checkToken()) {
 
@@ -225,24 +230,69 @@ public class ReportAction extends ActionBase {
       */
      public void timesheet() throws ServletException, IOException {
 
-         //idを条件に日報データを取得する
-         ReportView rv = service.findOne(toNumber(getRequestParam(AttributeConst.REP_ID)));
+         //idを条件に勤怠データを取得する
+         TimesheetView tv = service2.findOne(toNumber(getTimesheetParam(AttributeConst.TIM_ID)));
 
          //セッションからログイン中の従業員情報を取得
          EmployeeView ev = (EmployeeView) getSessionScope(AttributeConst.LOGIN_EMP);
 
-         if (rv == null || ev.getId() != rv.getEmployee().getId()) {
+         if (tv == null || ev.getId() != tv.getEmployee().getId()) {
              //該当の日報データが存在しない、または
              //ログインしている従業員が日報の作成者でない場合はエラー画面を表示
              forward(ForwardConst.FW_ERR_UNKNOWN);
          } else {
 
              putRequestScope(AttributeConst.TOKEN, getTokenId()); //CSRF対策用トークン
-             putRequestScope(AttributeConst.REPORT, rv); //取得した日報データ
+             putRequestScope(AttributeConst.TIMESHEET, tv); //取得した勤怠データ
 
              //勤怠入力画面を表示
              forward(ForwardConst.FW_REP_TIMESHEET);
          }
 
+     }
+
+     /**
+      * 勤怠の登録を行う
+      * @throws ServletException
+      * @throws IOException
+      */
+     public void regist() throws ServletException, IOException {
+
+         //CSRF対策 tokenのチェック
+         if (checkToken()) {
+
+
+
+             //セッションからログイン中の従業員情報を取得
+             EmployeeView ev = (EmployeeView) getSessionScope(AttributeConst.LOGIN_EMP);
+
+             //パラメータの値をもとに日報情報のインスタンスを作成する
+             TimesheetView tv = new TimesheetView(
+                     null,
+                     ev, //ログインしている従業員を、日報作成者として登録する
+                     getTimesheetParam(AttributeConst.TIM_ATTENDANCE),
+                     getTimesheetParam(AttributeConst.TIM_LEAVING));
+
+             //勤怠情報登録
+             List<String> errors = service2.regist(tv);
+
+             if (errors.size() > 0) {
+                 //登録中にエラーがあった場合
+                 putRequestScope(AttributeConst.TOKEN, getTokenId()); //CSRF対策用トークン
+                 putRequestScope(AttributeConst.TIMESHEET, tv);//入力された日報情報
+                 putRequestScope(AttributeConst.ERR, errors);//エラーのリスト
+
+                 //新規登録画面を再表示
+                 forward(ForwardConst.FW_REP_NEW);
+
+             } else {
+                 //登録中にエラーがなかった場合
+                 //セッションに登録完了のフラッシュメッセージを設定
+                 putSessionScope(AttributeConst.FLUSH, MessageConst.I_REGISTERED.getMessage());
+
+                 //一覧画面にリダイレクト
+                 redirect(ForwardConst.ACT_REP, ForwardConst.CMD_INDEX);
+             }
+         }
      }
 }

@@ -57,8 +57,8 @@ public class TimesheetConverter {
     }
     /**
      * Viewモデルの全フィールドの内容をDTOモデルのフィールドにコピーする
-     * @param r DTOモデル(コピー先)
-     * @param rv Viewモデル(コピー元)
+     * @param t DTOモデル(コピー先)
+     * @param tv Viewモデル(コピー元)
      */
     public static void copyViewToModel(timesheet t, TimesheetView tv) {
         t.setId(tv.getId());

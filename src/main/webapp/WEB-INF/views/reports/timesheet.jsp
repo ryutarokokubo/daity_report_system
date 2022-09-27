@@ -2,14 +2,14 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ page import="constants.ForwardConst" %>
 
-<c:set var="actRep" value="${ForwardConst.ACT_REP.getValue()}" />
-<c:set var="commUpd" value="${ForwardConst.CMD_UPDATE.getValue()}" />
+<c:set var="actTim" value="${ForwardConst.ACT_TIM.getValue()}" />
+<c:set var="commReg" value="${ForwardConst.CMD_REGISTER.getValue()}" />
 
 <c:import url="/WEB-INF/views/layout/app.jsp">
     <c:param name="content">
 
         <h2>勤怠入力ページ</h2>
-        <form method="POST" action="<c:url value='?action=${actRep}&command=${commUpd}' />">
+        <form method="POST" action="<c:url value='?action=${actTim}&command=${commReg}' />">
             <c:import url="timesheet_form.jsp" />
         </form>
 

@@ -12,6 +12,7 @@ public enum ForwardConst {
     ACT_EMP("Employee"),
     ACT_REP("Report"),
     ACT_AUTH("Auth"),
+    ACT_TIM("timesheet"),
 
   //command
     CMD("command"),
@@ -27,6 +28,7 @@ public enum ForwardConst {
     CMD_UPDATE("update"),
     CMD_DESTROY("destroy"),
     CMD_TIMESHEET("timesheet"),
+    CMD_REGISTER("register"),
 
   //jsp
     FW_ERR_UNKNOWN("error/unknown"),
