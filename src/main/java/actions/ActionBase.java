@@ -4,6 +4,7 @@ import java.io.IOException;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 import java.time.LocalDate;
+import java.time.LocalTime;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletContext;
@@ -14,6 +15,7 @@ import javax.servlet.http.HttpServletResponse;
 import constants.AttributeConst;
 import constants.ForwardConst;
 import constants.PropertyConst;
+
 /**
  * 各Actionクラスの親クラス。共通処理を行う。
  *
@@ -29,6 +31,7 @@ public abstract class ActionBase {
      * @param servletContext
      * @param servletRequest
      * @param servletResponse
+     * @param servletTimesheet
      */
     public void init(
             ServletContext servletContext,
@@ -38,13 +41,13 @@ public abstract class ActionBase {
         this.request = servletRequest;
         this.response = servletResponse;
     }
-
     /**
      * フロントコントローラから呼び出されるメソッド
      * @throws ServletException
      * @throws IOException
      */
     public abstract void process() throws ServletException, IOException;
+
     /**
      * パラメータのcommandの値に該当するメソッドを実行する
      * @throws ServletException
@@ -52,17 +55,17 @@ public abstract class ActionBase {
      */
     protected void invoke()
             throws ServletException, IOException {
+
         Method commandMethod;
         try {
 
             //パラメータからcommandを取得
             String command = request.getParameter(ForwardConst.CMD.getValue());
 
-            //ommandに該当するメソッドを実行する
+            //commandに該当するメソッドを実行する
             //(例: action=Employee command=show の場合 EmployeeActionクラスのshow()メソッドを実行する)
             commandMethod = this.getClass().getDeclaredMethod(command, new Class[0]);
             commandMethod.invoke(this, new Object[0]); //メソッドに渡す引数はなし
-
         } catch (NoSuchMethodException | SecurityException | IllegalAccessException | IllegalArgumentException
                 | InvocationTargetException | NullPointerException e) {
 
@@ -70,8 +73,9 @@ public abstract class ActionBase {
             e.printStackTrace();
             //commandの値が不正で実行できない場合エラー画面を呼び出し
             forward(ForwardConst.FW_ERR_UNKNOWN);
-        } }
+        }
 
+    }
     /**
      * 指定されたjspの呼び出しを行う
      * @param target 遷移先jsp画面のファイル名(拡張子を含まない)
@@ -106,6 +110,7 @@ public abstract class ActionBase {
 
         //URLへリダイレクト
         response.sendRedirect(redirectUrl);
+
     }
 
     /**
@@ -130,7 +135,6 @@ public abstract class ActionBase {
         }
 
     }
-
     /**
      * セッションIDを取得する
      * @return セッションID
@@ -138,7 +142,6 @@ public abstract class ActionBase {
     protected String getTokenId() {
         return request.getSession().getId();
     }
-
     /**
      * リクエストから表示を要求されているページ数を取得し、返却する
      * @return 要求されているページ数(要求がない場合は1)
@@ -151,7 +154,6 @@ public abstract class ActionBase {
         }
         return page;
     }
-
     /**
      * 文字列を数値に変換する
      * @param strNumber 変換前文字列
@@ -179,6 +181,17 @@ public abstract class ActionBase {
     }
 
     /**
+     * 文字列をLocalTime型に変換する
+     * @param strTime 変換前文字列
+     * @return 変換後LocalDateインスタンス
+     */
+    protected LocalTime toLocalTime(String strTime) {
+        if (strTime == null || strTime.equals("")) {
+            return LocalTime.now();
+        }
+        return LocalTime.parse(strTime);
+    }
+    /**
      * リクエストパラメータから引数で指定したパラメータ名の値を返却する
      * @param key パラメータ名
      * @return パラメータの値
@@ -186,6 +199,7 @@ public abstract class ActionBase {
     protected String getRequestParam(AttributeConst key) {
         return request.getParameter(key.getValue());
     }
+
     /**
      * リクエストスコープにパラメータを設定する
      * @param key パラメータ名
@@ -194,7 +208,6 @@ public abstract class ActionBase {
     protected <V> void putRequestScope(AttributeConst key, V value) {
         request.setAttribute(key.getValue(), value);
     }
-
     /**
      * セッションスコープから指定されたパラメータの値を取得し、返却する
      * @param key パラメータ名
@@ -204,6 +217,7 @@ public abstract class ActionBase {
     protected <R> R getSessionScope(AttributeConst key) {
         return (R) request.getSession().getAttribute(key.getValue());
     }
+
     /**
      * セッションスコープにパラメータを設定する
      * @param key パラメータ名
@@ -212,7 +226,6 @@ public abstract class ActionBase {
     protected <V> void putSessionScope(AttributeConst key, V value) {
         request.getSession().setAttribute(key.getValue(), value);
     }
-
     /**
      * セッションスコープから指定された名前のパラメータを除去する
      * @param key パラメータ名
@@ -220,6 +233,7 @@ public abstract class ActionBase {
     protected void removeSessionScope(AttributeConst key) {
         request.getSession().removeAttribute(key.getValue());
     }
+
     /**
      * アプリケーションスコープから指定されたパラメータの値を取得し、返却する
      * @param key パラメータ名
@@ -231,3 +245,6 @@ public abstract class ActionBase {
     }
 
 }
+
+
+

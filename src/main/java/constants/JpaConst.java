@@ -43,7 +43,7 @@ public interface JpaConst {
     //タイムシートテーブルカラム
     String TIM_COL_ID = "id"; //id
     String TIM_COL_EMP = "employee_id"; //勤怠を作成した従業員のid
-    String TIM_COL_REP_DATE = "attendance_date"; //いつの勤怠かを示す日付
+    String TIM_COL_TIM_DATE = "attendance_date"; //いつの勤怠かを示す日付
     String TIM_COL_ATTENDANCE = "attendance_time"; //出勤時間
     String TIM_COL_LEAVING = "leaving_time"; //退勤時間
 

@@ -26,8 +26,8 @@ public class TimesheetConverter {
     }
     /**
      * DTOモデルのインスタンスからViewモデルのインスタンスを作成する
-     * @param r Reportのインスタンス
-     * @return ReportViewのインスタンス
+     * @param t Timesheetのインスタンス
+     * @return TimesheetViewのインスタンス
      */
     public static TimesheetView toView(timesheet t) {
 

@@ -12,7 +12,7 @@ public enum ForwardConst {
     ACT_EMP("Employee"),
     ACT_REP("Report"),
     ACT_AUTH("Auth"),
-    ACT_TIM("timesheet"),
+    ACT_TIM("Timesheet"),
 
   //command
     CMD("command"),
@@ -28,7 +28,6 @@ public enum ForwardConst {
     CMD_UPDATE("update"),
     CMD_DESTROY("destroy"),
     CMD_TIMESHEET("timesheet"),
-    CMD_REGISTER("register"),
 
   //jsp
     FW_ERR_UNKNOWN("error/unknown"),
@@ -42,7 +41,9 @@ public enum ForwardConst {
     FW_REP_SHOW("reports/show"),
     FW_REP_NEW("reports/new"),
     FW_REP_EDIT("reports/edit"),
-    FW_REP_TIMESHEET("reports/timesheet");
+    FW_REP_TIMESHEET("reports/timesheet"),
+    FW_TIM_INDEX("timesheets/index"),
+    FW_TIM_NEW("timesheets/new");
     /**
      * 文字列
      */

@@ -12,21 +12,21 @@
 
     </div>
 </c:if>
-<fmt:parseDate value="${report.reportDate}" pattern="yyyy-MM-dd" var="reportDay" type="date" />
-<label for="${AttributeConst.REP_DATE.getValue()}">日付</label><br />
-<input type="date" name="${AttributeConst.REP_DATE.getValue()}" id="${AttributeConst.REP_DATE.getValue()}" value="<fmt:formatDate value='${reportDay}' pattern='yyyy-MM-dd' />" />
+<fmt:parseDate value="${timesheet.attendance_Date}" pattern="yyyy-MM-dd" var="timesheetDay" type="date" />
+<label for="${AttributeConst.TIM_DATE.getValue()}">日付</label><br />
+<input type="date" name="${AttributeConst.TIM_DATE.getValue()}" id="${AttributeConst.TIM_DATE.getValue()}" value="<fmt:formatDate value='${timesheetDay}' pattern='yyyy-MM-dd' />" />
 <br /><br />
 
 <label>氏名</label><br />
 <c:out value="${sessionScope.login_employee.name}" />
 <br /><br />
 
-<label for="${AttributeConst.REP_CONTENT.getValue()}">出勤時間</label><br />
-<input type="time" name="attendance_time" value="9:00">
+<label for="${AttributeConst.TIM_ATTENDANCE.getValue()}">出勤時間</label><br />
+<input type="time" name="${AttributeConst.TIM_ATTENDANCE.getValue()}" id="${AttributeConst.TIM_ATTENDANCE.getValue()}" value="${timesheet.attendance_time}" />
 <br /><br />
 <label for="${AttributeConst.REP_CONTENT.getValue()}">退勤時間</label><br />
-<input type="time" name="leaving_time" value="18:00" >
+<input type="time" name="${AttributeConst.TIM_LEAVING.getValue()}" id="${AttributeConst.TIM_LEAVING.getValue()}" value="${timesheet.leaving_time}" />
 <br /><br />
-<input type="hidden" name="${AttributeConst.REP_ID.getValue()}" value="${report.id}" />
+<input type="hidden" name="${AttributeConst.TIM_ID.getValue()}" value="${timesheet.id}" />
 <input type="hidden" name="${AttributeConst.TOKEN.getValue()}" value="${_token}" />
 <button type="submit">登録</button>

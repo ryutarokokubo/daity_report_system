@@ -52,6 +52,8 @@ public enum AttributeConst {
 
     //タイムシート
     TIMESHEET("timesheet"),
+    TIMESHEETS("timesheets"),
+    TIM_COUNT("timesheets_count"),
     TIM_ID("id"),
     TIM_DATE("attendance_date"),
     TIM_ATTENDANCE("attendance_time"),
