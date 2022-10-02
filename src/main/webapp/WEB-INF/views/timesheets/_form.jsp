@@ -24,7 +24,7 @@
 <label for="${AttributeConst.TIM_ATTENDANCE.getValue()}">出勤時間</label><br />
 <input type="time" name="${AttributeConst.TIM_ATTENDANCE.getValue()}" id="${AttributeConst.TIM_ATTENDANCE.getValue()}" value="${timesheet.attendance_time}" />
 <br /><br />
-<label for="${AttributeConst.REP_CONTENT.getValue()}">退勤時間</label><br />
+<label for="${AttributeConst.TIM_LEAVING.getValue()}">退勤時間</label><br />
 <input type="time" name="${AttributeConst.TIM_LEAVING.getValue()}" id="${AttributeConst.TIM_LEAVING.getValue()}" value="${timesheet.leaving_time}" />
 <br /><br />
 <input type="hidden" name="${AttributeConst.TIM_ID.getValue()}" value="${timesheet.id}" />

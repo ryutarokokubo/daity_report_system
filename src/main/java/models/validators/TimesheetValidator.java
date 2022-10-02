@@ -1,5 +1,6 @@
 package models.validators;
 
+import java.time.LocalTime;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -13,7 +14,7 @@ public class TimesheetValidator {
 
     /**
      * 日報インスタンスの各項目についてバリデーションを行う
-     * @param rv 日報インスタンス
+     * @param tv 勤怠インスタンス
      * @return エラーのリスト
      */
     public static List<String> validate(TimesheetView tv) {
@@ -38,7 +39,7 @@ public class TimesheetValidator {
      * @param title タイトル
      * @return エラーメッセージ
      */
-    private static String validateAttendance(String attendance_time) {
+    private static String validateAttendance(LocalTime attendance_time) {
         if (attendance_time == null || attendance_time.equals("")) {
             return MessageConst.E_NOTITLE.getMessage();
         }
@@ -51,7 +52,7 @@ public class TimesheetValidator {
      * @param content 内容
      * @return エラーメッセージ
      */
-    private static String validateLeaving(String leaving_time) {
+    private static String validateLeaving(LocalTime leaving_time) {
         if (leaving_time == null || leaving_time.equals("")) {
             return MessageConst.E_NOCONTENT.getMessage();
         }

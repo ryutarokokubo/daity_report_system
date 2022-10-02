@@ -95,8 +95,24 @@ public class TimesheetAction extends ActionBase {
                  day = LocalDate.parse(getRequestParam(AttributeConst.TIM_DATE));
              }
 
-             LocalTime.parse(getRequestParam(AttributeConst.TIM_ATTENDANCE));
-             LocalTime.parse(getRequestParam(AttributeConst.TIM_LEAVING));
+             //出勤時間が入力されていなければ、9:00に設定
+             LocalTime attendance = null;
+             if (getRequestParam(AttributeConst.TIM_ATTENDANCE) == null
+                     || getRequestParam(AttributeConst.TIM_ATTENDANCE).equals("")) {
+                 attendance = LocalTime.of(9,00);
+             } else {
+                 attendance = LocalTime.parse(getRequestParam(AttributeConst.TIM_ATTENDANCE));
+             }
+
+             //退勤時間が入力されていなければ、18:00に設定
+             LocalTime leaving = null;
+             if (getRequestParam(AttributeConst.TIM_LEAVING) == null
+                     || getRequestParam(AttributeConst.TIM_LEAVING).equals("")) {
+                 leaving = LocalTime.of(18,00);
+             } else {
+                 leaving = LocalTime.parse(getRequestParam(AttributeConst.TIM_LEAVING));
+             }
+
 
              //セッションからログイン中の従業員情報を取得
              EmployeeView ev = (EmployeeView) getSessionScope(AttributeConst.LOGIN_EMP);
@@ -106,16 +122,15 @@ public class TimesheetAction extends ActionBase {
                      null,
                      ev, //ログインしている従業員を、日報作成者として登録する
                      day,
-                     getRequestParam(AttributeConst.TIM_ATTENDANCE),
-                     getRequestParam(AttributeConst.TIM_LEAVING));
+                     attendance,
+                     leaving);
 
              //日報情報登録
              List<String> errors = service.create(tv);
-
              if (errors.size() > 0) {
                  //登録中にエラーがあった場合
                  putRequestScope(AttributeConst.TOKEN, getTokenId()); //CSRF対策用トークン
-                 putRequestScope(AttributeConst.TIMESHEET, tv);//入力された日報情報
+                 putRequestScope(AttributeConst.TIMESHEET, tv);//入力された勤怠情報
                  putRequestScope(AttributeConst.ERR, errors);//エラーのリスト
 
                  //新規登録画面を再表示

@@ -31,7 +31,6 @@ public abstract class ActionBase {
      * @param servletContext
      * @param servletRequest
      * @param servletResponse
-     * @param servletTimesheet
      */
     public void init(
             ServletContext servletContext,
@@ -183,7 +182,7 @@ public abstract class ActionBase {
     /**
      * 文字列をLocalTime型に変換する
      * @param strTime 変換前文字列
-     * @return 変換後LocalDateインスタンス
+     * @return 変換後LocalTimeインスタンス
      */
     protected LocalTime toLocalTime(String strTime) {
         if (strTime == null || strTime.equals("")) {

@@ -1,6 +1,7 @@
 package models;
 
 import java.time.LocalDate;
+import java.time.LocalTime;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -65,20 +66,20 @@ public class timesheet {
     /**
      * いつの勤怠かを示す日付
      */
-    @Column(name = JpaConst.TIM_COL_REP_DATE, nullable = false)
+    @Column(name = JpaConst.TIM_COL_TIM_DATE, nullable = false)
     private LocalDate attendance_Date;
 
     /**
      * 出勤時間
      */
     @Column(name = JpaConst.TIM_COL_ATTENDANCE, nullable = false)
-    private Integer attendance_time;
+    private LocalTime attendance_time;
 
     /**
      * 退勤時間
      */
     @Lob
     @Column(name = JpaConst.TIM_COL_LEAVING, nullable = false)
-    private Integer leaving_time;
+    private LocalTime leaving_time;
 
 }
