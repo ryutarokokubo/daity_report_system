@@ -25,13 +25,13 @@
                     <th class="timesheet_leaving">退勤時間</th>
                 </tr>
                 <c:forEach var="timesheet" items="${timesheets}" varStatus="status">
-                    <fmt:parseDate value="${timesheet.timesheetDate}" pattern="yyyy-MM-dd" var="timesheetDay" type="date" />
+                    <fmt:parseDate value="${timesheet.attendance_Date}" pattern="yyyy-MM-dd" var="timesheetDay" type="date" />
 
                     <tr class="row${status.count % 2}">
                         <td class="timesheet_name"><c:out value="${timesheet.employee.name}" /></td>
                         <td class="timesheet_date"><fmt:formatDate value='${timesheetDay}' pattern='yyyy-MM-dd' /></td>
-                        <td class="timesheet_attendance">${timesheet.attendance}</td>
-                        <td class="timesheet_leaving"><a href="<c:url value='?action=${actTim}&command=${commShow}&id=${timesheet.id}' />">詳細を見る</a></td>
+                        <td class="timesheet_attendance">${timesheet.attendance_time}</td>
+                        <td class="timesheet_leaving">${timesheet.leaving_time}</td>
                     </tr>
                 </c:forEach>
                  </tbody>
