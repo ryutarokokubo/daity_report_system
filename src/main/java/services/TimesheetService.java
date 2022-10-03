@@ -7,7 +7,7 @@ import actions.views.EmployeeView;
 import actions.views.TimesheetConverter;
 import actions.views.TimesheetView;
 import constants.JpaConst;
-import models.timesheet;
+import models.Timesheet;
 import models.validators.TimesheetValidator;
 /**
  * 勤怠テーブルの操作に関わる処理を行うクラス
@@ -21,7 +21,7 @@ public class TimesheetService extends ServiceBase {
      */
     public List<TimesheetView> getMinePerPage(EmployeeView employee, int page) {
 
-        List<timesheet> timesheets = em.createNamedQuery(JpaConst.Q_TIM_GET_ALL_MINE, timesheet.class)
+        List<Timesheet> timesheets = em.createNamedQuery(JpaConst.Q_TIM_GET_ALL_MINE, Timesheet.class)
                 .setParameter(JpaConst.JPQL_PARM_EMPLOYEE, EmployeeConverter.toModel(employee))
                 .setFirstResult(JpaConst.ROW_PER_PAGE * (page - 1))
                 .setMaxResults(JpaConst.ROW_PER_PAGE)
@@ -48,7 +48,7 @@ public class TimesheetService extends ServiceBase {
      */
     public List<TimesheetView> getAllPerPage(int page) {
 
-        List<timesheet> timesheets = em.createNamedQuery(JpaConst.Q_TIM_GET_ALL, timesheet.class)
+        List<Timesheet> timesheets = em.createNamedQuery(JpaConst.Q_TIM_GET_ALL, Timesheet.class)
                 .setFirstResult(JpaConst.ROW_PER_PAGE * (page - 1))
                 .setMaxResults(JpaConst.ROW_PER_PAGE)
                 .getResultList();
@@ -111,8 +111,8 @@ public class TimesheetService extends ServiceBase {
      * @param id
      * @return 取得データのインスタンス
      */
-    private timesheet findOneInternal(int id) {
-        return em.find(timesheet.class, id);
+    private Timesheet findOneInternal(int id) {
+        return em.find(Timesheet.class, id);
     }
     /**
      * 勤怠データを1件登録する

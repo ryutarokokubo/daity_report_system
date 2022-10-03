@@ -3,7 +3,7 @@ package actions.views;
 import java.util.ArrayList;
 import java.util.List;
 
-import models.timesheet;
+import models.Timesheet;
 
 /**
  * 日報データのDTOモデル⇔Viewモデルの変換を行うクラス
@@ -16,8 +16,8 @@ public class TimesheetConverter {
      * @param tv TimesheetViewのインスタンス
      * @return Timesheetのインスタンス
      */
-    public static timesheet toModel(TimesheetView tv) {
-        return new timesheet(
+    public static Timesheet toModel(TimesheetView tv) {
+        return new Timesheet(
                 tv.getId(),
                 EmployeeConverter.toModel(tv.getEmployee()),
                 tv.getAttendance_Date(),
@@ -29,7 +29,7 @@ public class TimesheetConverter {
      * @param t Timesheetのインスタンス
      * @return TimesheetViewのインスタンス
      */
-    public static TimesheetView toView(timesheet t) {
+    public static TimesheetView toView(Timesheet t) {
 
         if (t == null) {
             return null;
@@ -46,10 +46,10 @@ public class TimesheetConverter {
      * @param list DTOモデルのリスト
      * @return Viewモデルのリスト
      */
-    public static List<TimesheetView> toViewList(List<timesheet> list) {
+    public static List<TimesheetView> toViewList(List<Timesheet> list) {
         List<TimesheetView> evs = new ArrayList<>();
 
-        for (timesheet t : list) {
+        for (Timesheet t : list) {
             evs.add(toView(t));
         }
 
@@ -60,7 +60,7 @@ public class TimesheetConverter {
      * @param t DTOモデル(コピー先)
      * @param tv Viewモデル(コピー元)
      */
-    public static void copyViewToModel(timesheet t, TimesheetView tv) {
+    public static void copyViewToModel(Timesheet t, TimesheetView tv) {
         t.setId(tv.getId());
         t.setEmployee(EmployeeConverter.toModel(tv.getEmployee()));
         t.setAttendance_Date(tv.getAttendance_Date());
